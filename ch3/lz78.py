@@ -2,7 +2,7 @@ import re
 
 
 def encode(decoded: str) -> str:
-    ans: list[tuple[int, str]] = []  # returned list of tuples
+    ans: str = ""
     prefixes: list[str] = []  # seen prefixes
 
     left = 0
@@ -26,10 +26,9 @@ def encode(decoded: str) -> str:
 
         # update lists
         prefixes.append(largest_prefix + new_char)
-        ans.append((largest_prefix_index, new_char))
+        ans += f"({largest_prefix_index},{new_char})"
 
-    # format answer (remove string quotes and whitespace from each tuple)
-    return "".join(re.sub(r"\'|\s", "", str(tup)) for tup in ans)
+    return ans
 
 
 def decode(encoded: str) -> str:
