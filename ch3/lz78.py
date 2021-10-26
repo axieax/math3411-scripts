@@ -1,0 +1,53 @@
+import re
+
+
+def encode(decoded: str) -> str:
+    ans: list[tuple[int, str]] = []  # returned list of tuples
+    prefixes: list[str] = []  # seen prefixes
+
+    left = 0
+    while left < len(decoded):
+        # try to find the largest prefix
+        largest_prefix = ""
+        right = len(decoded)
+        while left <= right:
+            if (largest_prefix := decoded[left:right] or "") in prefixes:
+                # largest prefix found
+                new_char = decoded[right]
+                largest_prefix_index = prefixes.index(largest_prefix) + 1  # 1-indexed
+                left = right + 1
+                break
+            right -= 1
+        else:
+            # prefix not found
+            new_char = decoded[left]
+            largest_prefix_index = 0
+            left += 1
+
+        # update lists
+        prefixes.append(largest_prefix + new_char)
+        ans.append((largest_prefix_index, new_char))
+
+    # format answer (remove string quotes and whitespace from each tuple)
+    return "".join(re.sub(r"\'|\s", "", str(tup)) for tup in ans)
+
+
+def decode(encoded: str) -> str:
+    # convert to list
+    groupings = re.findall(r"(?<=\()(.*?)(?=\))", encoded)
+    groupings = [(int(x[0]), x[1]) for group in groupings if (x := group.split(","))]
+
+    # dictionary lookup
+    lookup = [""]
+    for prefix_index, suffix in groupings:
+        lookup.append(lookup[prefix_index] + suffix)
+
+    return "".join(lookup)
+
+
+if __name__ == "__main__":
+    print(decode("(0,b)(0,a)(1,c)(3,a)(3,b)(5,a)"))
+    # print(decode(""))
+    print(encode("abbcbcababcaa"))
+    # print(encode(""))
+    pass
