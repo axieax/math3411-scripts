@@ -15,6 +15,8 @@ options = ["1", "111", "011", "0"]
 for option in options:
     check = c + [option]
     arrangements = permutations(check, r=2)
+    # uniquely decodeable - not a prefix for other codes
+    # NOTE: may not necessarily be true - e.g. 11b and 11 is fine if only b follows
     status = all(not pair[0].startswith(pair[1]) for pair in arrangements)
     if status:
         print(option)
