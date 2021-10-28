@@ -45,8 +45,8 @@ def decode(encoded: str) -> str:
 
 
 if __name__ == "__main__":
-    print(decode("(0,b)(0,a)(1,c)(3,a)(3,b)(5,a)"))
-    # print(decode(""))
-    print(encode("abbcbcababcaa"))
-    # print(encode(""))
+    # print(decode("(0,b)(0,a)(1,c)(3,a)(3,b)(5,a)"))
+    print(decode("(0,c)(0,b)(1,a)(2,a)(4,a)(5,b)"))
+    # print(encode("abbcbcababcaa"))
+    # print(encode("bbabacbacbbacbbbacbc"))
     pass
