@@ -1,9 +1,12 @@
 from math import ceil, sqrt
 
-N = 35581
+N = 24871
+
 a = ceil(sqrt(N))
 while True:
     if N % a == 0:
-        print((a, N // a))
+        b = N // a
+        print((a, b))
+        print(f"b - a = {abs(b - a)}")
         break
     a += 1

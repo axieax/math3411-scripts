@@ -3,6 +3,8 @@ FIELD_SIZE = 2
 Q = (1, 0, 0, 1, 1)
 HIGHEST_DEGREE = len(Q) - 1
 
+# TODO: linear comb highest
+
 lookup = []
 # add basics
 for x in range(HIGHEST_DEGREE):
