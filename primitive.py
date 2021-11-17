@@ -12,9 +12,11 @@ while True:
 from math import gcd
 
 print("Primitive Elements")
-FIELD_SIZE = 13
-PRIMITIVE_ELEMENT = 6
+FIELD_SIZE = 27
+PRIMITIVE_ELEMENT = 2
 
+ans = set()
 for k in range(1, FIELD_SIZE):
     if gcd(k, FIELD_SIZE - 1) == 1:
-        print(pow(PRIMITIVE_ELEMENT, k, FIELD_SIZE))
+        ans.add(pow(PRIMITIVE_ELEMENT, k, FIELD_SIZE))
+print(ans)
