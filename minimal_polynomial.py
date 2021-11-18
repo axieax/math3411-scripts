@@ -1,6 +1,8 @@
 # linear combination
-FIELD_SIZE = 2
-Q = (1, 0, 0, 1, 1)
+FIELD_SIZE = 3
+# FIELD_SIZE = 2
+Q = (1, 1, 2)
+# Q = (1, 0, 0, 1, 1)
 HIGHEST_DEGREE = len(Q) - 1
 
 # TODO: linear comb highest
@@ -24,7 +26,7 @@ while True:
     shifted = prev[1:] + (0,)
     maxx = prev[0]
     if maxx != 0:
-        extra = lookup[HIGHEST_DEGREE]
+        extra = tuple(maxx * q % FIELD_SIZE for q in lookup[HIGHEST_DEGREE])
         shifted = tuple(sum(t) % FIELD_SIZE for t in zip(shifted, extra))
     lookup.append(shifted)
     if all(q == 0 for q in shifted[:-1]) and shifted[-1] == 1:
@@ -39,13 +41,17 @@ print(f"{LOOP=}")
 ### minimal polynomial for POWER
 from itertools import combinations
 
-POWER = 14
+POWER = 3
+# POWER = 14
 
-# find recurring
+# find recurring powers
 degrees = {POWER}
-prev = POWER
-while (prev := prev * 2 % LOOP) not in degrees:
-    degrees.add(prev)
+x = POWER
+while True:
+    x = x * FIELD_SIZE % LOOP
+    if x in degrees:
+        break
+    degrees.add(x)
 print(f"{degrees=}")
 
 print("Term\tCoefficient\n--\t--")
@@ -60,7 +66,5 @@ for i in range(HIGHEST_DEGREE + 1):
     ]
     # print(ans)
     x_pow = HIGHEST_DEGREE - i
-    expr = " + ".join(f"a^{HIGHEST_DEGREE - ip}" for ip, p in enumerate(ans) if p == 1)
-    expr = f"({expr})" if expr else "(0)"
-    output = f"x^{x_pow}\t{expr}"
+    output = f"x^{x_pow}\t{ans}"
     print(output)
